@@ -47,7 +47,12 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         
     # Generar y devolver el token...
     access_token = security.create_access_token(data={"sub": str(user.id)})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "role": user.role,        # <-- MANDAMOS EL ROL AL FRONTEND
+        "username": user.username # <-- También útil para mostrar un "Hola, sysadmin_01"
+    }
 
 
 
