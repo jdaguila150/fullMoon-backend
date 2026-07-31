@@ -29,22 +29,7 @@ def register(user: schemas.UserRegister, db: Session = Depends(get_db)):
     access_token = security.create_access_token(data={"sub": str(new_user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
-# @router.post("/login")
-# def login(form_data: schemas.UserLogin = Depends(), db: Session = Depends(get_db)):
-#     # Buscamos al usuario en la BD (ajusta según cómo lo busques tú)
-#     user = db.query(models.User).filter(models.User.username == form_data.username).first()
-#     if not user:
-#         raise HTTPException(status_code=400, detail="Credenciales incorrectas")
 
-#     # 👇 LA MAGIA AQUÍ TAMBIÉN: Truncamos antes de verificar
-#     safe_password = form_data.password[:72]
-    
-#     if not security.verify_password(safe_password, user.password_hash):
-#         raise HTTPException(status_code=400, detail="Credenciales incorrectas")
-        
-#     # Generar y devolver el token...
-#     access_token = security.create_access_token(data={"sub": str(user.id)})
-#     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
