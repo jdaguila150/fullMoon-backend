@@ -1,0 +1,72 @@
+[
+  {
+    "id": "arena_fund_teo_01",
+    "tipo_reto": "teorico",
+    "pregunta": "¿Qué resultado arroja este código al ejecutarse?\n```python\nx = \"5\"\ny = 2\nprint(x * y)\n```",
+    "opciones": [
+      "10",
+      "55",
+      "Error de tipo (TypeError)",
+      "52"
+    ],
+    "indice_correcto": 1,
+    "tiempo_limite_segundos": 30,
+    "recompensa_puntos": 20
+  },
+  {
+    "id": "arena_fund_teo_02",
+    "tipo_reto": "teorico",
+    "pregunta": "¿Cuál es el valor impreso tras evaluar la expresión booleana?\n```python\nresultado = True and False or True\nprint(resultado)\n```",
+    "opciones": [
+      "True",
+      "False",
+      "None",
+      "Error de sintaxis"
+    ],
+    "indice_correcto": 0,
+    "tiempo_limite_segundos": 30,
+    "recompensa_puntos": 25
+  },
+  {
+    "id": "arena_fund_teo_03",
+    "tipo_reto": "teorico",
+    "pregunta": "¿Qué número se imprime al finalizar este ciclo `while`?\n```python\nc = 0\nwhile c < 3:\n    c += 2\nprint(c)\n```",
+    "opciones": [
+      "2",
+      "3",
+      "4",
+      "0"
+    ],
+    "indice_correcto": 2,
+    "tiempo_limite_segundos": 40,
+    "recompensa_puntos": 35
+  },
+  {
+    "id": "arena_fund_teo_04",
+    "tipo_reto": "teorico",
+    "pregunta": "Considerando cómo Python maneja la memoria por referencia, ¿qué imprimirá el código?\n```python\na = [1, 2]\nb = a\nb.append(3)\nprint(len(a))\n```",
+    "opciones": [
+      "2",
+      "3",
+      "1",
+      "Error de tipo (TypeError)"
+    ],
+    "indice_correcto": 1,
+    "tiempo_limite_segundos": 45,
+    "recompensa_puntos": 50
+  },
+  {
+    "id": "arena_fund_teo_05",
+    "tipo_reto": "teorico",
+    "pregunta": "¿Cuál es el resultado de comparar estos castings booleanos?\n```python\nx = bool(0.0)\ny = bool(\"False\")\nprint(x == y)\n```",
+    "opciones": [
+      "True",
+      "False",
+      "Error de valor (ValueError)",
+      "None"
+    ],
+    "indice_correcto": 1,
+    "tiempo_limite_segundos": 45,
+    "recompensa_puntos": 45
+  }
+]

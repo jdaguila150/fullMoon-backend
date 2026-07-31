@@ -1,0 +1,54 @@
+# =========================
+# Entornos Virtuales
+# =========================
+venv/
+env/
+.venv/
+Pipfile.lock
+
+# =========================
+# Variables de Entorno (¡CRÍTICO!)
+# =========================
+.env
+.env.local
+.env.production
+.env.development
+
+# =========================
+# Bases de Datos Locales
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+sql_app.db
+
+# =========================
+# Archivos de Caché de Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# IDEs y Editores de Código
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Archivos del Sistema Operativo
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs y Archivos Temporales
+# =========================
+*.log
+tmp/
+temp/

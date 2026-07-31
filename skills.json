@@ -1,0 +1,101 @@
+[
+  {
+    "id": "velocista_lvl1",
+    "name": "Parada Temprana",
+    "description": "Congela el reloj global de la Arena durante 15 segundos. Uso: 1 vez por partida.",
+    "branch": "velocista",
+    "level": 1,
+    "prerequisites": [],
+    "energy_cost": 50,
+    "effect_type": "time_freeze_seconds",
+    "effect_value": 15
+  },
+  {
+    "id": "velocista_lvl2",
+    "name": "Expansión de Hiperparámetros",
+    "description": "Aumenta el tiempo base de todos los retos en un 10%.",
+    "branch": "velocista",
+    "level": 2,
+    "prerequisites": ["velocista_lvl1"],
+    "energy_cost": 120,
+    "effect_type": "time_expansion_percent",
+    "effect_value": 0.10
+  },
+  {
+    "id": "velocista_lvl3",
+    "name": "Overclocking",
+    "description": "Resolver un problema en el primer 30% del tiempo guarda los segundos sobrantes para el siguiente.",
+    "branch": "velocista",
+    "level": 3,
+    "prerequisites": ["velocista_lvl2"],
+    "energy_cost": 250,
+    "effect_type": "time_carryover_threshold",
+    "effect_value": 0.30
+  },
+  {
+    "id": "analista_lvl1",
+    "name": "Trazado Limpio",
+    "description": "En lugar del error genérico, resalta la línea exacta donde falló el intérprete.",
+    "branch": "analista",
+    "level": 1,
+    "prerequisites": [],
+    "energy_cost": 50,
+    "effect_type": "clean_stack_trace",
+    "effect_value": 1
+  },
+  {
+    "id": "analista_lvl2",
+    "name": "Recolección de Basura",
+    "description": "Formatea automáticamente el código, arreglando errores de indentación y espacios. Cooldown: 10s.",
+    "branch": "analista",
+    "level": 2,
+    "prerequisites": ["analista_lvl1"],
+    "energy_cost": 120,
+    "effect_type": "auto_format_cooldown_seconds",
+    "effect_value": 10
+  },
+  {
+    "id": "analista_lvl3",
+    "name": "Visión de Capa Oculta",
+    "description": "Si fallas al enviar, revela el input exacto del caso de prueba oculto que rompió tu código. Uso: 1 vez por partida.",
+    "branch": "analista",
+    "level": 3,
+    "prerequisites": ["analista_lvl2"],
+    "energy_cost": 250,
+    "effect_type": "reveal_hidden_test",
+    "effect_value": 1
+  },
+  {
+    "id": "tactico_lvl1",
+    "name": "Generador Base",
+    "description": "Inyecta automáticamente la firma de la función, variables de inicialización y el return.",
+    "branch": "tactico",
+    "level": 1,
+    "prerequisites": [],
+    "energy_cost": 50,
+    "effect_type": "boilerplate_gen",
+    "effect_value": 1
+  },
+  {
+    "id": "tactico_lvl2",
+    "name": "Función de Recompensa",
+    "description": "Resolver 3 problemas seguidos sin fallar tests multiplica tu puntuación de Arena por 1.5x.",
+    "branch": "tactico",
+    "level": 2,
+    "prerequisites": ["tactico_lvl1"],
+    "energy_cost": 120,
+    "effect_type": "multiplier_streak",
+    "effect_value": 1.5
+  },
+  {
+    "id": "tactico_lvl3",
+    "name": "Bypass de Memoria",
+    "description": "Permite saltarse un problema algorítmico extremadamente difícil sin perder tu racha (otorga 0 puntos). Uso: 1 vez por sesión.",
+    "branch": "tactico",
+    "level": 3,
+    "prerequisites": ["tactico_lvl2"],
+    "energy_cost": 250,
+    "effect_type": "skip_problem",
+    "effect_value": 1
+  }
+]
