@@ -30,8 +30,13 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+import models
+from database import engine, Base
+
 
 load_dotenv()
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
