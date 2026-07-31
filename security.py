@@ -21,10 +21,14 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 oauth2_scheme_optional = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False) 
 
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    # Recortamos la contraseña plana a 72 caracteres antes de verificarla
+    safe_password = plain_password[:72]
+    return pwd_context.verify(safe_password, hashed_password)
 
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    # Recortamos la contraseña a 72 caracteres antes de encriptarla
+    safe_password = password[:72]
+    return pwd_context.hash(safe_password)
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -42,15 +46,16 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
+        user_id: str = payload.get("sub") # <-- Cambiamos a user_id
         
-        if username is None:
+        if user_id is None:
             raise credentials_exception
             
     except JWTError:
         raise credentials_exception
         
-    user = db.query(User).filter(User.username == username).first()
+    # 👇 BUSCAMOS POR ID, NO POR USERNAME
+    user = db.query(User).filter(User.id == int(user_id)).first() 
     
     if user is None:
         raise credentials_exception
@@ -67,9 +72,11 @@ def get_optional_current_user(token: Optional[str] = Depends(oauth2_scheme_optio
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
+        user_id: str = payload.get("sub") # <-- Cambiamos a user_id
+
         
         # Si el token es inválido o no tiene username, también lo tratamos como invitado
-        if username is None:
+        if user_id is None:
             return None
             
     except JWTError:
@@ -77,7 +84,7 @@ def get_optional_current_user(token: Optional[str] = Depends(oauth2_scheme_optio
         return None
         
     # Si todo salió bien, buscamos al usuario igual que en la función estricta
-    user = db.query(User).filter(User.username == username).first()
+    user = db.query(User).filter(User.id == int(user_id)).first() 
     
     return user
 
