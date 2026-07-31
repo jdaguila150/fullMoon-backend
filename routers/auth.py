@@ -12,7 +12,7 @@ def register(user: schemas.UserRegister, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="El usuario o email ya está registrado")
         
-    hashed_password = security.get_password_hash(user.password)
+    hashed_password = security.get_password_hash(user.password[:72])    
     new_user = models.User(
         username=user.username, 
         email=user.email, 
@@ -28,15 +28,21 @@ def register(user: schemas.UserRegister, db: Session = Depends(get_db)):
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/login")
-def login(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == credentials.username).first()
-    
-    if not user or not security.verify_password(credentials.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos")
-        
-    access_token = security.create_access_token(data={"sub": user.username, "role": user.role})
-    return {"access_token": access_token, "token_type": "bearer"}
+def login(form_data: schemas.UserLogin = Depends(), db: Session = Depends(get_db)):
+    # Buscamos al usuario en la BD (ajusta según cómo lo busques tú)
+    user = db.query(models.User).filter(models.User.username == form_data.username).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Credenciales incorrectas")
 
+    # 👇 LA MAGIA AQUÍ TAMBIÉN: Truncamos antes de verificar
+    safe_password = form_data.password[:72]
+    
+    if not security.verify_password(safe_password, user.password_hash):
+        raise HTTPException(status_code=400, detail="Credenciales incorrectas")
+        
+    # Generar y devolver el token...
+    access_token = security.create_access_token(data={"sub": str(user.id)})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me")
 def get_my_profile(current_user: models.User = Depends(get_current_user)):
