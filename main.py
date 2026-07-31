@@ -1,17 +1,46 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from database import engine, Base
+# from fastapi import FastAPI
+# from fastapi.middleware.cors import CORSMiddleware
+# from database import engine, Base
 from routers import auth, lessons, skills, admin, arena, modulos
 
-# Crear tablas en SQLite si no existen
-Base.metadata.create_all(bind=engine)
+# # Crear tablas en SQLite si no existen
+# Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="FullMoon API", version="1.0.0")
+# app = FastAPI(title="FullMoon API", version="1.0.0")
 
-# Habilitar CORS para React
+# # Habilitar CORS para React
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"], # Cambiar a la URL de tu frontend en producción
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+
+# # Registrar las rutas modulares
+# app.include_router(auth.router)
+# app.include_router(lessons.router)
+# app.include_router(skills.router)
+# app.include_router(admin.router)
+# app.include_router(arena.router)
+# app.include_router(modulos.router)
+
+
+import os
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app = FastAPI()
+
+# Por defecto permite localhost si no hay variable configurada
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Cambiar a la URL de tu frontend en producción
+    allow_origins=[FRONTEND_URL], # URL de Vercel en producción
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
